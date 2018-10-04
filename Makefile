@@ -16,5 +16,7 @@ lint:
 run-effective-python-pythonic-thinking:
 	jupyter nbconvert EffectivePython/PythonicThinking.ipynb --post serve
 
-
+run-msds422-assignment-01:
+	jupyter nbconvert MSDS422/Assignment_01.ipynb --post serve
+	
 all: install lint test

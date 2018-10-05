@@ -13,3 +13,5 @@ pyyaml
 numpy
 bokeh
 jupyterlab
+seaborn
+matplotlib

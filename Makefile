@@ -14,10 +14,8 @@ test:
 lint:
 	pylint --disable=R,C funclib
 
-run-effective-python:
-	jupyter nbconvert -to pdf EffectivePython/*.ipynb --post serve
 
-run-msds422:
-	jupyter nbconvert --to pdf MSDS422/Assignment_01.ipynb.ipynb --post serve
+jupyter nbconvert -to pdf EffectivePython/*.ipynb --post serve
+jupyter nbconvert --to pdf MSDS422/Assignment_01.ipynb.ipynb --post serve
 	
 all: install lint test

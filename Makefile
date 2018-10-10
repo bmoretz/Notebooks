@@ -18,6 +18,6 @@ run-effective-python:
 
 run-msds422:
 	jupyter nbconvert MSDS422/*.ipynb --post serve
-	jupyter nbconvert --to PDF *.ipynb
+	jupyter nbconvert --to PDF MSDS422/*.ipynb
 	
 all: install lint test

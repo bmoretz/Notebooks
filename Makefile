@@ -17,7 +17,6 @@ run-effective-python:
 	jupyter nbconvert EffectivePython/*.ipynb --post serve
 
 run-msds422:
-	jupyter nbconvert MSDS422/Assignment_01.ipynb.ipynb --post serve
-	jupyter nbconvert --to PDF MSDS422/Assignment_01.ipynb
+	jupyter nbconvert --to PDF MSDS422/Assignment_01.ipynb.ipynb --post serve
 	
 all: install lint test

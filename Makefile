@@ -14,14 +14,7 @@ test:
 lint:
 	pylint --disable=R,C funclib
 
-jupyter nbconvert --to pdf MSDS422/Assignment_01/Assignment_01.ipynb --post serve
-
-nbs = $(wildcard *.ipynb)
-pdfs = $(nbs:%.ipynb=%.pdf)
-
-all: $(pdfs)
-
-%.pdf: %.ipynb
-        jupyter-nbconvert --to pdf $<;
+convert:
+	jupyter nbconvert --to pdf MSDS422/Assignment_01/Assignment_01.ipynb --post serve
         
-all: install lint test
+all: install lint test convert

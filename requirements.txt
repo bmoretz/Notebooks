@@ -15,3 +15,4 @@ bokeh
 jupyterlab
 seaborn
 matplotlib
+nbconvert

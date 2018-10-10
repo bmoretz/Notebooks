@@ -13,10 +13,10 @@ test:
 lint:
 	pylint --disable=R,C funclib
 
-run-effective-python-pythonic-thinking:
-	jupyter nbconvert EffectivePython/PythonicThinking.ipynb --post serve
+run-effective-python:
+	jupyter nbconvert EffectivePython/*.ipynb --post serve
 
-run-msds422-assignment-01:
-	jupyter nbconvert MSDS422/Assignment_01.ipynb --post serve
+run-msds422:
+	jupyter nbconvert MSDS422/*.ipynb --post serve
 	
 all: install lint test

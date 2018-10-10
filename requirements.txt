@@ -16,3 +16,5 @@ jupyterlab
 seaborn
 matplotlib
 nbconvert
+six.moves
+sklearn

@@ -9,7 +9,8 @@ install:
 test:
 	#PYTHONPATH=. && pytest -vv --cov=paws --cov=spot-price-ml tests/*.py
 	PYTHONPATH=. && py.test --nbval-lax EffectivePython/*.ipynb
-
+	PYTHONPATH=. && py.test --nbval-lax MSDS422/*/*.ipynb
+	
 lint:
 	pylint --disable=R,C funclib
 

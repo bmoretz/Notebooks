@@ -1,0 +1,4 @@
+user: postgres
+pw: root
+port: 5433
+ip: 192.168.1.214

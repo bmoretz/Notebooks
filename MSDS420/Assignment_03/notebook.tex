@@ -1,0 +1,1772 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Chicago\_Crimes}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{figure}
+\centering
+\includegraphics{attachment:image.png}
+\caption{image.png}
+\end{figure}
+
+    \hypertarget{deliverables}{%
+\section{Deliverables:}\label{deliverables}}
+
+\begin{itemize}
+\tightlist
+\item
+  Submit a single zip-compressed file that has the name:
+  YourLastName\_Assignment\_5 that has the following files:
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Your \textbf{PDF document} that has your Source code and output
+\item
+  Your \textbf{ipynb script} that has your Source code and output
+\end{enumerate}
+
+\hypertarget{objectives}{%
+\section{Objectives:}\label{objectives}}
+
+\begin{itemize}
+\tightlist
+\item
+  Use SQL to execute different queries to retrieve data from Chicago
+  Crime dataset and Police statins dataset
+\item
+  Use Geospatial queries to locate \textbf{police stations} and
+  \textbf{gun} related crimes (with arrest or no arrest) in every
+  district on \textbf{Choropleth} map
+\item
+  Use Geospatial queries to provide \textbf{descriptive stat} for every
+  \textbf{district} on Choropleth map
+\item
+  Use Geospatial queries to locate the \textbf{Block} that is the
+  furthest (Maximum Distance) from the police station that has gun
+  related crime resulted in arrest
+\end{itemize}
+
+\hypertarget{submission-formats}{%
+\section{Submission Formats :}\label{submission-formats}}
+
+Create a folder or directory with all supplementary files with your last
+name at the beginning of the folder name, compress that folder with zip
+compression, and post the zip-archived folder under the assignment link
+in Canvas. The following files should be included in an archive
+folder/directory that is uploaded as a single zip-compressed file. (Use
+zip, not StuffIt or any 7z or any other compression method.)
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Complete IPYNB script that has the source code in Python used to
+  access and analyze the data. The code should be submitted as an IPYNB
+  script that can be be loaded and run in Jupyter Notebook for Python
+\item
+  Output from the program, such as console listing/logs, text files, and
+  graphics output for visualizations. If you use the Data Science
+  Computing Cluster or School of Professional Studies database servers
+  or systems, include Linux logs of your sessions as plain text files.
+  Linux logs may be generated by using the script process at the
+  beginning of your session, as demonstrated in tutorial handouts for
+  the DSCC servers.
+\item
+  List file names and descriptions of files in the zip-compressed
+  folder/directory.
+\end{enumerate}
+
+Formatting Python Code When programming in Python, refer to Kenneth
+Reitz' PEP 8: The Style Guide for Python Code: http://pep8.org/ (Links
+to an external site.)Links to an external site. There is the Google
+style guide for Python at
+https://google.github.io/styleguide/pyguide.html (Links to an external
+site.)Links to an external site. Comment often and in detail.
+
+    \hypertarget{descriptions-and-requirement-specifications}{%
+\section{Descriptions and Requirement
+Specifications}\label{descriptions-and-requirement-specifications}}
+
+    \hypertarget{chicago-crimes}{%
+\subsection{Chicago Crimes}\label{chicago-crimes}}
+
+    In his first state of the uniion address , president Trump mentioned
+Chicago violance 10 times
+\textbf{\href{http://www.chicagotribune.com/news/local/breaking/ct-trump-tweets-quotes-chicago-htmlstory.html}{Trump's
+State of the Union Address}}
+
+    \hypertarget{chicago-has-more-homicides-than-new-york-and-los-angeles-combined}{%
+\subsection{Chicago has more homicides than New York and Los Angeles
+combined}\label{chicago-has-more-homicides-than-new-york-and-los-angeles-combined}}
+
+    Columnist Clarence Page wrote an
+\textbf{\href{http://www.chicagotribune.com/news/opinion/page/ct-perspec-page-trump-murder-rate-jeff-sessions-0103-20180102-story.html}{article}}
+, published by the Chicago Tribune stated that the city of Chicago had
+\textbf{more homicides in the past two years than New York and Los
+Angeles combined}
+
+    \hypertarget{chicago-police-department}{%
+\section{Chicago Police Department}\label{chicago-police-department}}
+
+Chicago police department
+\textbf{\href{https://home.chicagopolice.org/community/districts/11th-district-harrison/}{CPD}}
+issues and publishes on daily basis on its website crime alerts, and
+press releases for the different
+\textbf{\href{https://home.chicagopolice.org/community/districts/}{districts}}
+.
+
+    \begin{figure}
+\centering
+\includegraphics{attachment:image.png}
+\caption{image.png}
+\end{figure}
+
+    \hypertarget{the-cpd-categoizes-the-crimes-into-8-categories-as-follows}{%
+\section{The CPD categoizes the crimes into 8 categories as
+follows:}\label{the-cpd-categoizes-the-crimes-into-8-categories-as-follows}}
+
+\begin{figure}
+\centering
+\includegraphics{attachment:image.png}
+\caption{image.png}
+\end{figure}
+
+    \hypertarget{chicago-crimes-dataset}{%
+\section{Chicago Crimes Dataset}\label{chicago-crimes-dataset}}
+
+The CSV file for crimes dataset for the city of Chicago is obtained from
+the data portal for the city of Chicago. Here is the link for the city
+of Chicago data portal
+\textbf{\href{https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2}{City
+of Chicago Data Portal}}
+
+\begin{figure}
+\centering
+\includegraphics{attachment:image.png}
+\caption{image.png}
+\end{figure}
+
+    \hypertarget{loading-the-dataset-csv-file}{%
+\subsubsection{Loading the Dataset CSV
+file}\label{loading-the-dataset-csv-file}}
+
+Three datasets are need for this assignment: 1. The Chicago police
+stations in every district 2. The Boundaries.geojson data for district
+boundries 3. The Crimes dataset
+
+Lets load the CSV file into a DataFrame object and see the nature of the
+data that we have.
+
+Complete description of the dataset can be found on Chicago city data
+portal.
+
+Based on Trumps State of the Uniion Address and the article written by
+columnist Clarence Page and published by the Chicago Tribune, we are
+interested to retrieve the data for the past two years and perform
+different types of spatial queries.
+
+There are few of these queries that we are interested in to help CPD and
+city of Chicago to plot on a Choroplteh map those districts that have
+highest gun crimes.
+
+Here are examples of those types of quereis:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Plot on \textbf{Choropleth map} the \textbf{districts} and their
+  \textbf{Violent Crimes}
+\item
+  Plot on Choropleth map the districts and their \textbf{Gun} related
+  crimes
+\item
+  Which district is the \textbf{crime capital} of \textbf{Chicago
+  districts}?
+\item
+  What the \textbf{crime density} per \textbf{district}?
+\item
+  Plot on Choropleth map those \textbf{gun related crimes} that resulted
+  in \textbf{arrests}
+\item
+  Plot on Choropleth map the gun related crime that is in the
+  \textbf{farthest Block} from the \textbf{policy stattion} for every
+  \textbf{district}
+\end{enumerate}
+
+    Packages you need to Connect \textbf{PostgreSQL} server to load and
+retrieve Crhicago Crime dataset from the database:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{psycopg2:} for PostgreSQL driver
+\item
+  \textbf{area:} to calculate the area inside of any GeoJSON geometry
+\item
+  \textbf{Folium:} for Choropleth maps
+\end{enumerate}
+
+Since we are using PostGIS in our work, please read and bookmark
+\textbf{\href{https://postgis.net/docs/manual-1.4/ch04.html}{Chapter 4.
+Using PostGIS: Data Management and Queries}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}199}]:} \PY{k+kn}{import} \PY{n+nn}{folium}
+          \PY{k+kn}{from} \PY{n+nn}{folium} \PY{k}{import} \PY{n}{plugins}
+          \PY{k+kn}{from} \PY{n+nn}{folium}\PY{n+nn}{.}\PY{n+nn}{plugins} \PY{k}{import} \PY{n}{MarkerCluster}
+          \PY{k+kn}{import} \PY{n+nn}{psycopg2}
+          \PY{k+kn}{import} \PY{n+nn}{csv}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{json}
+          \PY{k+kn}{from} \PY{n+nn}{area} \PY{k}{import} \PY{n}{area}
+          
+          \PY{k+kn}{from} \PY{n+nn}{psycopg2}\PY{n+nn}{.}\PY{n+nn}{extensions} \PY{k}{import} \PY{n}{ISOLATION\PYZus{}LEVEL\PYZus{}AUTOCOMMIT} 
+\end{Verbatim}
+
+
+    Check Connection
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}200}]:} \PY{n}{db\PYZus{}connection} \PY{o}{=} \PY{n}{psycopg2}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{host}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{127.0.0.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dbname}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chicago\PYZus{}crimes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{user}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{postgres}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{password}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{root}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{cursor} \PY{o}{=} \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{cursor}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k}{assert} \PY{n}{cursor} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}
+\end{Verbatim}
+
+
+    \hypertarget{create-crimes-database-postgres}{%
+\subsubsection{Create Crimes Database
+(Postgres)}\label{create-crimes-database-postgres}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}201}]:} \PY{n}{db\PYZus{}connection} \PY{o}{=} \PY{n}{psycopg2}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{host}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{127.0.0.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dbname}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{postgres}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{user}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{postgres}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{password}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{root}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{set\PYZus{}isolation\PYZus{}level}\PY{p}{(}\PY{n}{ISOLATION\PYZus{}LEVEL\PYZus{}AUTOCOMMIT}\PY{p}{)} 
+          
+          \PY{n}{cursor} \PY{o}{=} \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{cursor}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} comment the following line if you already created the database }
+          \PY{c+c1}{\PYZsh{} Only once you need to create the database}
+          
+          \PY{c+c1}{\PYZsh{} cursor.execute(\PYZdq{}CREATE DATABASE chicago\PYZus{}crimes;\PYZdq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{c+c1}{\PYZsh{}cursor.close()}
+          \PY{c+c1}{\PYZsh{}db\PYZus{}connection.close()}
+\end{Verbatim}
+
+
+    \hypertarget{postgres-geography-extension}{%
+\subsubsection{Postgres Geography
+Extension}\label{postgres-geography-extension}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}203}]:} \PY{c+c1}{\PYZsh{} Only once you need to create the postgis extension.}
+          \PY{c+c1}{\PYZsh{} Comment the following line if you already created the postgis extension}
+          
+          \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CREATE EXTENSION postgis;}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ProgrammingError                          Traceback (most recent call last)
+
+        <ipython-input-203-dd1aced8bdcb> in <module>
+          3 \# Comment the following line if you already created the postgis extension
+          4 
+    ----> 5 cursor.execute("CREATE EXTENSION postgis;")
+    
+
+        ProgrammingError: extension "postgis" already exists
+    
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{commit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{chicago-crimes-table}{%
+\subsubsection{Chicago Crimes Table}\label{chicago-crimes-table}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DROP TABLE IF EXISTS crimes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{commit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{CREATE TABLE crimes(ID INTEGER,}
+        \PY{l+s+s2}{               CaseNo TEXT,}
+        \PY{l+s+s2}{               DATE\PYZus{}OF\PYZus{}OCCURRENCE timestamp,}
+        \PY{l+s+s2}{               BLOCK TEXT,}
+        \PY{l+s+s2}{               IUCR TEXT,}
+        \PY{l+s+s2}{               PRIMARY\PYZus{}TYPE TEXT, }
+        \PY{l+s+s2}{               DESCRIPTION TEXT, }
+        \PY{l+s+s2}{               LOCATION\PYZus{}DESCRIPTION TEXT,}
+        \PY{l+s+s2}{               ARREST BOOLEAN,}
+        \PY{l+s+s2}{               DOMESTIC BOOLEAN,}
+        \PY{l+s+s2}{               BEAT INTEGER,}
+        \PY{l+s+s2}{               DISTRICT INTEGER,}
+        \PY{l+s+s2}{               WARD FLOAT,}
+        \PY{l+s+s2}{               COMMUNITY\PYZus{}AREA TEXT,}
+        \PY{l+s+s2}{               FBI\PYZus{}CD TEXT,}
+        \PY{l+s+s2}{               Xcoordinate FLOAT,}
+        \PY{l+s+s2}{               Ycoordinate FLOAT,}
+        \PY{l+s+s2}{               YEAR INTEGER, }
+        \PY{l+s+s2}{               UPDATED\PYZus{}ON timestamp,}
+        \PY{l+s+s2}{               LATITUDE FLOAT, }
+        \PY{l+s+s2}{               LONGITUDE FLOAT,}
+        \PY{l+s+s2}{               LOCATION TEXT,}
+        \PY{l+s+s2}{               Where\PYZus{}IS GEOGRAPHY);}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{chicago-crimes-dataset}{%
+\subsubsection{Chicago Crimes Dataset}\label{chicago-crimes-dataset}}
+
+The Crimes\_2001\_to\_present.csv is downloaded from Chicago data portal
+and it has roughly 6.5 million records.
+
+While working in this dataset, It is prudent to make a note of the
+following: 1. Geospatial queries are very demanding for system resouces
+like CPU, Memory, and DISK 1. We are interested in the data set of the
+past 2 years, and when you execute Geospatial type queries, please be
+advised that these queries slow down your machine. 2. Running this
+script to work on the data of the past 2 years will require roughly 25
+minutes to complete. And requires roughly 40 minutes to complete using
+the dataset of the past 5 years. And requires hours to complete on the
+entire dataset with at least 16GB memory. 3. It is a good idea to take a
+slice (past two years) of the dataset and store it, that will help
+improve perfoamnce significantly especialy for SEARCH and SORT
+algorithms that are utilized by the database engine.
+
+\hypertarget{algorithm-performance}{%
+\subsubsection{Algorithm Performance}\label{algorithm-performance}}
+
+\begin{itemize}
+\item
+  \textbf{Sort algorithms} used by the database engines vary in
+  performance between O(\(N log N\)) and O(\$ N\^{}\{2\} \$) where \(N\)
+  is the size of the number
+\item
+  \textbf{Search algorithms} used by the database engines vary in
+  performance between O(\(log N\)) and O(\$ N \$) where \(N\) is the
+  size of the number
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{crimes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crimes\PYZus{}2001\PYZus{}to\PYZus{}present.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{crimes\PYZus{}df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    \hypertarget{lets-get-the-crimes-from-2016-till-2018}{%
+\subsubsection{Lets get the crimes from 2016 till
+2018:}\label{lets-get-the-crimes-from-2016-till-2018}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{crimes\PYZus{}df} \PY{o}{=} \PY{n}{crimes\PYZus{}df}\PY{p}{[}\PY{n}{crimes\PYZus{}df}\PY{o}{.}\PY{n}{Year} \PY{o}{\PYZgt{}} \PY{l+m+mi}{2015}\PY{p}{]}
+        \PY{n}{crimes\PYZus{}df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{crimes\PYZus{}df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{crimes\PYZus{}df} \PY{o}{=} \PY{n}{crimes\PYZus{}df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+        \PY{n}{crimes\PYZus{}df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{crimes\PYZus{}df}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{crimes\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{crimes\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+        \PY{n}{crimes\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ward}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{crimes\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ward}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+        \PY{n}{crimes\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Community Area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{crimes\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Community Area}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}lets store our data subset into a file}
+        \PY{n}{crimes\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chicago\PYZus{}crimes\PYZus{}2016\PYZus{}to\PYZus{}2018.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{lets-store-the-data-of-the-crimes-including-district-latitude-and-longitude-in-the-database}{%
+\subsubsection{Lets store the data of the crimes, including district,
+Latitude, and Longitude in the
+database}\label{lets-store-the-data-of-the-crimes-including-district-latitude-and-longitude-in-the-database}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} Now we will connect to the database and store the chicago data crimes from 2016 to 2018}
+        
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chicago\PYZus{}crimes\PYZus{}2016\PYZus{}to\PYZus{}2018.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{reader} \PY{o}{=} \PY{n}{csv}\PY{o}{.}\PY{n}{reader}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+            \PY{n+nb}{next}\PY{p}{(}\PY{n}{reader}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Skip the header row.}
+        
+            \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{reader}\PY{p}{:}
+                \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}
+                        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{INSERT INTO crimes VALUES (}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, NULL)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                        \PY{n}{row}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{commit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{lets-store-the-data-of-the-police-stations-including-district-latitude-and-longitude-in-the-database}{%
+\subsubsection{Lets store the data of the Police stations, including
+district, Latitude, and Longitude in the
+database}\label{lets-store-the-data-of-the-police-stations-including-district-latitude-and-longitude-in-the-database}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{DROP TABLE IF EXISTS police\PYZus{}stations}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{commit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{CREATE TABLE police\PYZus{}stations(District TEXT,}
+        \PY{l+s+s2}{               DISTRICT\PYZus{}NAME TEXT, }
+        \PY{l+s+s2}{               Address TEXT,}
+        \PY{l+s+s2}{               City TEXT,}
+        \PY{l+s+s2}{               State TEXT,}
+        \PY{l+s+s2}{               ZIP INTEGER,}
+        \PY{l+s+s2}{               WEBSITE TEXT,}
+        \PY{l+s+s2}{               PHONE TEXT,}
+        \PY{l+s+s2}{               FAX TEXT,}
+        \PY{l+s+s2}{               TTY TEXT,}
+        \PY{l+s+s2}{               X\PYZus{}COORDINATE FLOAT,}
+        \PY{l+s+s2}{               Y\PYZus{}COORDINATE FLOAT,}
+        \PY{l+s+s2}{               LATITUDE FLOAT,}
+        \PY{l+s+s2}{               LONGITUDE FLOAT,}
+        \PY{l+s+s2}{               LOCATION TEXT,}
+        \PY{l+s+s2}{               Where\PYZus{}IS GEOGRAPHY);}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ChicagoPoliceStation.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{reader} \PY{o}{=} \PY{n}{csv}\PY{o}{.}\PY{n}{reader}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+            \PY{n+nb}{next}\PY{p}{(}\PY{n}{reader}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Skip the header row.}
+            \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{reader}\PY{p}{:}
+                \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}
+                    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{INSERT INTO police\PYZus{}stations VALUES (}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{, NULL)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                    \PY{n}{row}
+                \PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{lets-add-the-spatial-type-for-the-location-as-where_is-and-store-the-st_pointlatitudelongitude}{%
+\subsubsection{Lets add the spatial type for the location as Where\_IS
+and store the
+ST\_POINT(LATITUDE,LONGITUDE)}\label{lets-add-the-spatial-type-for-the-location-as-where_is-and-store-the-st_pointlatitudelongitude}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{UPDATE police\PYZus{}stations SET Where\PYZus{}IS = ST\PYZus{}POINT(LATITUDE,LONGITUDE);}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{commit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{UPDATE crimes SET Where\PYZus{}IS = ST\PYZus{}POINT(LATITUDE,LONGITUDE);}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{commit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{lets-start-executing-different-queries}{%
+\subsection{Lets start executing different
+Queries}\label{lets-start-executing-different-queries}}
+
+    \hypertarget{query-1}{%
+\subsection{Query \#1:}\label{query-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Calculate the total number of crimes in every district and plot that
+  on Choropleth map
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}204}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SELECT district, count(district) from crimes GROUP BY district}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{rows}\PY{o}{=}\PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}205}]:} \PY{n}{crimes\PYZus{}per\PYZus{}district} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{rows}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number\PYZus{}of\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{crimes\PYZus{}per\PYZus{}district}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{crimes\PYZus{}per\PYZus{}district}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+          
+          \PY{n}{crimes\PYZus{}per\PYZus{}district}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}205}]:}   dist\_num  number\_of\_crimes
+          0        1             31994
+          1        2             25160
+          2        3             27306
+          3        4             32434
+          4        5             25618
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}206}]:} \PY{n}{total\PYZus{}number\PYZus{}of\PYZus{}crimes\PYZus{}per\PYZus{}district\PYZus{}map} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location} \PY{o}{=}\PY{p}{(}\PY{l+m+mf}{41.8781}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{87.6298}\PY{p}{)}\PY{p}{,}\PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}207}]:} \PY{n}{total\PYZus{}number\PYZus{}of\PYZus{}crimes\PYZus{}per\PYZus{}district\PYZus{}map}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}\PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Boundaries.geojson}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrRd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                        \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                        \PY{n}{data} \PY{o}{=} \PY{n}{crimes\PYZus{}per\PYZus{}district}\PY{p}{,}
+                        \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number\PYZus{}of\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{SELECT ST\PYZus{}X(ST\PYZus{}AsText(Where\PYZus{}IS)), ST\PYZus{}Y(ST\PYZus{}AsText(Where\PYZus{}IS)), district from police\PYZus{}stations where district != }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Headquarters}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+          \PY{n}{police\PYZus{}stations} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{police\PYZus{}station} \PY{o+ow}{in} \PY{n}{police\PYZus{}stations}\PY{p}{:}
+              \PY{n}{police\PYZus{}station\PYZus{}location} \PY{o}{=} \PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SELECT district, count(district) from crimes where district= }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ GROUP BY district}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+              \PY{n}{districts\PYZus{}crime\PYZus{}numbers} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+              \PY{k}{for} \PY{n}{district} \PY{o+ow}{in} \PY{n}{districts\PYZus{}crime\PYZus{}numbers}\PY{p}{:}
+                  \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{location} \PY{o}{=} \PY{n}{police\PYZus{}station\PYZus{}location}\PY{p}{,}\PY{n}{popup}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{District No : }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{  has   Total Number of Crimes:}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{k}{district} ,max\PYZus{}width=450)).add\PYZus{}to(total\PYZus{}number\PYZus{}of\PYZus{}crimes\PYZus{}per\PYZus{}district\PYZus{}map)
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  \textbf{Lets plot the Choropleth map and notice the intensity of color
+  on the different districts}
+\item
+  \textbf{The Blue POPUP represents the location of police station in
+  the different districts in the map}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}209}]:} \PY{n}{total\PYZus{}number\PYZus{}of\PYZus{}crimes\PYZus{}per\PYZus{}district\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}209}]:} <folium.folium.Map at 0x1f09de93dd8>
+\end{Verbatim}
+            
+    \hypertarget{query-2}{%
+\subsection{Query \#2:}\label{query-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  Calculate the total number of \textbf{violent crimes} in every
+  district and plot that in a table on Choropleth map
+\end{itemize}
+
+    Well, we really need only the violent crimes per district, so we will
+filter only those crimes that we are interested in. Please note that we
+are not interested to plot property crimes, we are really after violent
+crimes and in particular \textbf{Gun} related crimes.
+
+So for now, lets plot violent crimes on Choropleth map and later on we
+will filter only Gun related crimes
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}210}]:} \PY{n}{violent\PYZus{}crime\PYZus{}categories}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{THEFT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ASSAULT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ROBBERY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KIDNAPPING}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CRIM SEXUAL ASSAULT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BATTERY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MURDER}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}211}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SELECT district, count(district) from crimes where PRIMARY\PYZus{}TYPE in }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ GROUP BY district}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{n}{violent\PYZus{}crime\PYZus{}categories}\PY{p}{]}\PY{p}{)}
+          \PY{n}{rows}\PY{o}{=}\PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+          \PY{n}{violent\PYZus{}crime\PYZus{}data}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{rows}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number\PYZus{}of\PYZus{}violent\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{violent\PYZus{}crime\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{violent\PYZus{}crime\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+          \PY{n}{violent\PYZus{}crime\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}211}]:}    district\_num  number\_of\_violent\_crimes
+          0             1                     21794
+          1             2                     14517
+          2             3                     14988
+          3             4                     17128
+          4             5                     13112
+          5             6                     19772
+          6             7                     15931
+          7             8                     18530
+          8             9                     14030
+          9            10                     13988
+          10           11                     18279
+          11           12                     17472
+          12           14                     13198
+          13           15                     11927
+          14           16                      9602
+          15           17                      9418
+          16           18                     20653
+          17           19                     15429
+          18           20                      5533
+          19           22                      9326
+          20           24                      9453
+          21           25                     16032
+          22           31                         3
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}212}]:} \PY{n}{violent\PYZus{}crimes\PYZus{}per\PYZus{}district\PYZus{}map}\PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location} \PY{o}{=}\PY{p}{(}\PY{l+m+mf}{41.8781}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{87.6298}\PY{p}{)}\PY{p}{,}\PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+          \PY{n}{violent\PYZus{}crimes\PYZus{}per\PYZus{}district\PYZus{}map}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}\PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Boundaries.geojson}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlOrRd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                        \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                        \PY{n}{data} \PY{o}{=} \PY{n}{violent\PYZus{}crime\PYZus{}data}\PY{p}{,}
+                        \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number\PYZus{}of\PYZus{}violent\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                        \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{VOILENT CRIME MAP}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}213}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{SELECT ST\PYZus{}X(ST\PYZus{}AsText(Where\PYZus{}IS)), ST\PYZus{}Y(ST\PYZus{}AsText(Where\PYZus{}IS)), district from police\PYZus{}stations where district!=}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Headquarters}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+          \PY{n}{police\PYZus{}stations} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{police\PYZus{}station} \PY{o+ow}{in} \PY{n}{police\PYZus{}stations}\PY{p}{:}
+              \PY{n}{police\PYZus{}station\PYZus{}location} \PY{o}{=}\PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SELECT PRIMARY\PYZus{}TYPE, count(PRIMARY\PYZus{}TYPE) from crimes where district =}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ AND PRIMARY\PYZus{}TYPE in }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ GROUP BY PRIMARY\PYZus{}TYPE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{violent\PYZus{}crime\PYZus{}categories}\PY{p}{]}\PY{p}{)}
+              \PY{n}{data} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+              \PY{n}{violent\PYZus{}crimes\PYZus{}per\PYZus{}district\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Violent Crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{header} \PY{o}{=} \PY{n}{violent\PYZus{}crimes\PYZus{}per\PYZus{}district\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}html}\PY{p}{(}\PY{n}{classes}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{table table\PYZhy{}striped table\PYZhy{}hover table\PYZhy{}condensed table\PYZhy{}responsive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{n}{police\PYZus{}station\PYZus{}location}\PY{p}{,} \PY{n}{popup}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{District Number }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZhy{} Violent Crimes }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{header}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{violent\PYZus{}crimes\PYZus{}per\PYZus{}district\PYZus{}map}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}214}]:} \PY{n}{violent\PYZus{}crimes\PYZus{}per\PYZus{}district\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}214}]:} <folium.folium.Map at 0x1f0b95b2d68>
+\end{Verbatim}
+            
+    \hypertarget{query-3}{%
+\subsection{Query \#3:}\label{query-3}}
+
+\begin{itemize}
+\tightlist
+\item
+  Calculate the total number of \textbf{gun related violent crimes} in
+  every district and plot that in a table on Choropleth map
+\end{itemize}
+
+    Lets first create a dataframe of gun crimes per district first to get an
+idea about the number of gun crimes per district
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}215}]:} \PY{n}{gun}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}G}\PY{l+s+s1}{UN}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SELECT district, count(district) from crimes where DESCRIPTION::text LIKE }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ GROUP BY district}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{n}{gun}\PY{p}{]}\PY{p}{)}
+          \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+          \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gun\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+          \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}215}]:}    dist\_num  gun\_crimes
+          0         1         410
+          1         2        1348
+          2         3        1928
+          3         4        1960
+          4         5        1925
+          5         6        2598
+          6         7        2739
+          7         8        1853
+          8         9        1794
+          9        10        2188
+          10       11        3175
+          11       12        1334
+          12       14         822
+          13       15        2015
+          14       16         326
+          15       17         574
+          16       18         411
+          17       19         501
+          18       20         235
+          19       22        1059
+          20       24         540
+          21       25        1738
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}216}]:} \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}map} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location} \PY{o}{=}\PY{p}{(}\PY{l+m+mf}{41.8781}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{87.6298}\PY{p}{)}\PY{p}{,}\PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+          \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}map}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}\PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Boundaries.geojson}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlOrRd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                        \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                        \PY{n}{data} \PY{o}{=} \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{p}{,}
+                        \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gun\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                        \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GUN CRIME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Now, lets create a dataframe of the \textbf{different types of gun
+crimes for every district} and then plot it on Choropleth map
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{SELECT ST\PYZus{}X(ST\PYZus{}AsText(Where\PYZus{}IS)), ST\PYZus{}Y(ST\PYZus{}AsText(Where\PYZus{}IS)), district from police\PYZus{}stations where district!=}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Headquarters}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{gun}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}G}\PY{l+s+s1}{UN}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{police\PYZus{}stations} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{police\PYZus{}station} \PY{o+ow}{in} \PY{n}{police\PYZus{}stations}\PY{p}{:}
+              \PY{n}{police\PYZus{}station\PYZus{}location} \PY{o}{=} \PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{SELECT DESCRIPTION, count(DESCRIPTION) from crimes where district=}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ and DESCRIPTION::text LIKE }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ GROUP BY DESCRIPTION}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{gun}\PY{p}{]}\PY{p}{)}
+              \PY{n}{district\PYZus{}gun\PYZus{}violent\PYZus{}crimes}\PY{o}{=}\PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+              \PY{n}{district\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{district\PYZus{}gun\PYZus{}violent\PYZus{}crimes}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Description}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Gun Crime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{header} \PY{o}{=} \PY{n}{district\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}html}\PY{p}{(}\PY{n}{classes}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{table table\PYZhy{}striped table\PYZhy{}hover table\PYZhy{}condensed table\PYZhy{}responsive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{n}{police\PYZus{}station\PYZus{}location}\PY{p}{,}\PY{n}{popup}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{District No: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ GUN\PYZus{}Crime: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{header}\PY{p}{)} \PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}map}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}218}]:} <folium.folium.Map at 0x1f0b9c11d68>
+\end{Verbatim}
+            
+    \hypertarget{query-4}{%
+\subsection{Query \#4:}\label{query-4}}
+
+\begin{itemize}
+\tightlist
+\item
+  Calculate the crime density per district
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{n}{district}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{n}{tarea}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          
+          \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Boundaries.geojson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+              \PY{n}{data} \PY{o}{=} \PY{n}{json}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+              \PY{n}{a} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{obj}\PY{o}{=}\PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{geometry}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{n}\PY{o}{=} \PY{n}{a}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{properties}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{district}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{n}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                  \PY{n}{tarea}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{area}\PY{p}{(}\PY{n}{obj}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{10000}\PY{p}{)}
+          
+          \PY{n}{af}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{district}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district\PYZus{}area\PYZus{}inHectares}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{tarea}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{af}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{af}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+          \PY{n}{final\PYZus{}data}\PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{af}\PY{p}{,} \PY{n}{crimes\PYZus{}per\PYZus{}district}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{final\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{crime\PYZus{}density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{final\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{number\PYZus{}of\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{p}{(}\PY{n}{final\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district\PYZus{}area\PYZus{}inHectares}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+          \PY{n}{final\PYZus{}data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}219}]:}    dist\_num  district\_area\_inHectares  number\_of\_crimes  crime\_density
+          0        17               2492.727155             17165          689.0
+          1        20               1132.170216              9820          867.0
+          2        31                 51.045317                16           31.0
+          3        31                799.507694                16            2.0
+          4        31                 32.407658                16           49.0
+          5        19               2225.035732             26135         1175.0
+          6        25               2827.989237             31477         1113.0
+          7        14               1555.869965             21793         1401.0
+          8         7               1688.670732             30748         1821.0
+          9         3               1576.063931             27306         1733.0
+          10        4               7068.152865             32434          459.0
+          11        6               2099.682124             35855         1708.0
+          12       22               3490.416073             18582          532.0
+          13        5               3318.613379             25618          772.0
+          14       24               1406.081387             16946         1205.0
+          15       16               8171.776367             19972          244.0
+          16        8               5992.169760             37275          622.0
+          17       18               1215.520046             31003         2551.0
+          18       12               2509.453028             29678         1183.0
+          19       11               1582.727274             40386         2552.0
+          20       15                989.631393             23615         2386.0
+          21       10               2038.988883             27513         1349.0
+          22        1               1214.818895             31994         2634.0
+          23        9               3505.216898             26584          758.0
+          24        2               1949.690970             25160         1290.0
+\end{Verbatim}
+            
+    \hypertarget{query-5}{%
+\subsection{Query \#5:}\label{query-5}}
+
+\begin{itemize}
+\tightlist
+\item
+  Create \textbf{Marker Clusters} on Choropleth map for those
+  \textbf{gun related violent crimes} that resulted in \textbf{arrest
+  (green icon)} and those that \textbf{didn't (red icon)}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{n}{gun\PYZus{}crime\PYZus{}arrests\PYZus{}map} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location} \PY{o}{=}\PY{p}{(}\PY{l+m+mf}{41.8781}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{87.6298}\PY{p}{)}\PY{p}{,}\PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+          \PY{n}{gun\PYZus{}crime\PYZus{}arrests\PYZus{}map}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}\PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Boundaries.geojson}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlOrRd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                        \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                        \PY{n}{data} \PY{o}{=} \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{p}{,}
+                        \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gun\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                        \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GUN CRIME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{SELECT ST\PYZus{}X(ST\PYZus{}AsText(Where\PYZus{}IS)), ST\PYZus{}Y(ST\PYZus{}AsText(Where\PYZus{}IS)), district from police\PYZus{}stations where district!=}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Headquarters}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+          \PY{n}{gun}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}G}\PY{l+s+s1}{UN}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}
+          
+          \PY{n}{police\PYZus{}stations} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{marker\PYZus{}cluster} \PY{o}{=} \PY{n}{MarkerCluster}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{gun\PYZus{}crime\PYZus{}arrests\PYZus{}map}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{police\PYZus{}station} \PY{o+ow}{in} \PY{n}{police\PYZus{}stations}\PY{p}{:}
+              \PY{n}{police\PYZus{}station\PYZus{}location} \PY{o}{=} \PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{SELECT DISTINCT ON(caseno) caseno, block,DESCRIPTION, count(arrest), arrest,latitude, longitude from crimes where district=}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ and DESCRIPTION::text LIKE }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ GROUP BY caseno,block, DESCRIPTION,arrest, latitude, longitude}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{gun}\PY{p}{]}\PY{p}{)}
+              \PY{n}{crimes\PYZus{}per\PYZus{}district} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+          
+              \PY{k}{for} \PY{n}{crime} \PY{o+ow}{in} \PY{n}{crimes\PYZus{}per\PYZus{}district}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{o}{==}\PY{k+kc}{True}\PY{p}{:}
+                      \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{(}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{popup}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{District No: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZlt{}br\PYZgt{} Description: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZlt{}br\PYZgt{} Block: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{icon}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Icon}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{icon}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ok\PYZhy{}sign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{marker\PYZus{}cluster}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{(}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{popup}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{District No: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZlt{}br\PYZgt{} Description: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZlt{}br\PYZgt{} Block: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{icon}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Icon}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{icon}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{remove\PYZhy{}sign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{marker\PYZus{}cluster}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}222}]:} \PY{n}{gun\PYZus{}crime\PYZus{}arrests\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}222}]:} <folium.folium.Map at 0x1f0ba01f518>
+\end{Verbatim}
+            
+    \hypertarget{query-6}{%
+\subsection{Query \#6:}\label{query-6}}
+
+\begin{itemize}
+\tightlist
+\item
+  Plot on Choropleth map the \textbf{farthest Block} that has a gun
+  crime from every police station in every district
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}223}]:} \PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime\PYZus{}map} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location} \PY{o}{=}\PY{p}{(}\PY{l+m+mf}{41.8781}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{87.6298}\PY{p}{)}\PY{p}{,}\PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+          \PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime\PYZus{}map}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}\PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Boundaries.geojson}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                        \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlOrRd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                        \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+                        \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+                        \PY{n}{data} \PY{o}{=} \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{p}{,}
+                        \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                        \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gun\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                        \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GUN CRIME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{SELECT ST\PYZus{}X(ST\PYZus{}AsText(Where\PYZus{}IS)), ST\PYZus{}Y(ST\PYZus{}AsText(Where\PYZus{}IS)), district from police\PYZus{}stations where district!=}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Headquarters}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+          \PY{n}{police\PYZus{}stations} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{gun}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}G}\PY{l+s+s1}{UN}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}
+          
+          \PY{k}{for} \PY{n}{police\PYZus{}station} \PY{o+ow}{in} \PY{n}{police\PYZus{}stations}\PY{p}{:}
+              
+              \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{SELECT DISTINCT on (A.block) A.district,A.block, A.where\PYZus{}is,ST\PYZus{}Distance(A.where\PYZus{}is,B.where\PYZus{}is) from crimes as A, police\PYZus{}stations as B }
+          \PY{l+s+s2}{    where ST\PYZus{}Distance(A.where\PYZus{}is,B.where\PYZus{}is) in ( SELECT max(dist) FROM }
+          \PY{l+s+s2}{    (SELECT ST\PYZus{}Distance(A.where\PYZus{}is,B.where\PYZus{}is) as dist from crimes as A, police\PYZus{}stations as B where A.district=}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ }
+          \PY{l+s+s2}{    and DESCRIPTION::text LIKE }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ and B.district= }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ ) as f)}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{gun}\PY{p}{,}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+              
+              \PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+          
+              \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SELECT ST\PYZus{}X(ST\PYZus{}AsText(}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{)), ST\PYZus{}Y(ST\PYZus{}AsText(}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{))}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{p}{(}\PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+              \PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime\PYZus{}location} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+              \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{popup}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Police Station \PYZlt{}br\PYZgt{} District No.:}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZlt{}br\PYZgt{} Farthest Gun\PYZus{}Crime Block:}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime\PYZus{}map}\PY{p}{)}
+              \PY{n}{folium}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}\PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime\PYZus{}location}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{radius}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}ff3187}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{popup}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{District No.:}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZlt{}br\PYZgt{} Block:}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime\PYZus{}map}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{n}{farthest\PYZus{}block\PYZus{}gun\PYZus{}crime\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}225}]:} <folium.folium.Map at 0x1f0dcc50be0>
+\end{Verbatim}
+            
+    
+
+    \hypertarget{requirement-1}{%
+\subsubsection{Requirement \#1:}\label{requirement-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  Locate the \textbf{Block} that has the \textbf{higest number of gun
+  crimes}. The popup on Choropleth map shall display the Block in every
+  district along with the total number of gun crimes for that block
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{k}{def} \PY{n+nf}{reset\PYZus{}conn}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{cursor}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+              \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{k}{def} \PY{n+nf}{refresh\PYZus{}conn}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{k}{if} \PY{n}{db\PYZus{}connnection} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{n}{cursor}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{close}\PY{p}{(}\PY{p}{)}
+                  
+              \PY{n}{db\PYZus{}conn} \PY{o}{=} \PY{n}{psycopg2}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{host}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{127.0.0.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dbname}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chicago\PYZus{}crimes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{user}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{postgres}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{password}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{root}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{cur} \PY{o}{=} \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{cursor}\PY{p}{(}\PY{p}{)}
+              
+              \PY{k}{return} \PY{n}{db\PYZus{}conn}\PY{p}{,} \PY{n}{cur}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}228}]:} \PY{n}{db\PYZus{}connection} \PY{o}{=} \PY{n}{psycopg2}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{host}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{127.0.0.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dbname}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{chicago\PYZus{}crimes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{user}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{postgres}\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{password}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{root}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{cursor} \PY{o}{=} \PY{n}{db\PYZus{}connection}\PY{o}{.}\PY{n}{cursor}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{get_gun_crimes-type}{%
+\subsubsection{get\_gun\_crimes( type )}\label{get_gun_crimes-type}}
+
+stored procedure for getting gun crimes, by type, partitioned by block.
+CREATE OR REPLACE FUNCTION get_gun_crimes(crime_type VARCHAR(70))
+RETURNS TABLE(
+ dist integer,
+ blk text,
+ num_crimes bigint,
+ district_crimes bigint,
+ x_coord double precision,
+ y_coord double precision
+)
+AS $$
+   BEGIN
+        RETURN QUERY
+			WITH crime_types AS (
+			    SELECT DISTINCT
+			          district,
+			          block,
+			          COUNT( id ) OVER ( PARTITION BY district, block ) AS block_gun_crimes,
+                      COUNT( id ) OVER ( PARTITION BY district ) AS district_gun_crimes                           			          
+			    FROM
+			        crimes
+			    WHERE
+			         DESCRIPTION::text LIKE ('%' || crime_type || '%')
+			    GROUP BY
+			          district,
+			          block,
+			          location_description,
+			          id
+			), crime_rank AS (
+			SELECT
+			      *,
+			      RANK() OVER( PARTITION BY district ORDER BY block_gun_crimes DESC ) AS Ranking
+			FROM
+			    crime_types
+			),
+			stations AS (
+			 SELECT
+			       CAST( district AS INTEGER ),
+			       ST_X(ST_AsText(Where_IS)),
+			       ST_Y(ST_AsText(Where_IS)) 
+			 FROM
+			     police_stations
+			 WHERE
+			      district != 'Headquarters'
+			)
+            SELECT
+			      C.district,
+			      C.block,
+			      C.block_gun_crimes,
+			      C.district_gun_crimes,
+			      P.ST_X,
+			      P.ST_Y
+			FROM
+			    crime_rank as C
+			    INNER JOIN stations as P
+			          on C.district = P.district
+			WHERE
+			     Ranking = 1
+			ORDER BY
+			      district;
+END; $$ 
+
+LANGUAGE 'plpgsql';
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}229}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SELECT * FROM get\PYZus{}gun\PYZus{}crimes(}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{);}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GUN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{gun\PYZus{}crimes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Block}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BlockCrimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DistrictCrimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}230}]:} \PY{n}{gun\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}230}]:}    District                                Block  BlockCrimes  DistrictCrimes  \textbackslash{}
+          0         1                 0000X E ROOSEVELT RD           10             410   
+          1         2                      003XX E 47TH ST           15            1348   
+          2         3  064XX S DR MARTIN LUTHER KING JR DR           39            1928   
+          3         4                    078XX S ESSEX AVE           17            1960   
+          4         5                     102XX S STATE ST           13            1925   
+          
+               X\_Coord    Y\_Coord  
+          0  41.858373 -87.627356  
+          1  41.801811 -87.630560  
+          2  41.766431 -87.605748  
+          3  41.707933 -87.568349  
+          4  41.692723 -87.604506  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{n}{gun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df} \PY{o}{=} \PY{n}{gun\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DistrictCrimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{gun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gun\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{gun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df}\PY{o}{.}\PY{n}{district} \PY{o}{=} \PY{n}{gun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df}\PY{o}{.}\PY{n}{district}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}232}]:} \PY{n}{most\PYZus{}gun\PYZus{}crimes\PYZus{}map} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location} \PY{o}{=}\PY{p}{(}\PY{l+m+mf}{41.8781}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{87.6298}\PY{p}{)}\PY{p}{,}\PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+          
+          \PY{n}{most\PYZus{}gun\PYZus{}crimes\PYZus{}map}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+              \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Boundaries.geojson}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+              \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlOrRd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+              \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+              \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+              \PY{n}{data} \PY{o}{=} \PY{n}{gun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df}\PY{p}{,}
+              \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+              \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gun\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+              \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GUN CRIME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}233}]:} \PY{n}{districts} \PY{o}{=} \PY{n}{gun\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{District}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{district\PYZus{}crimes} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          
+          \PY{k}{for} \PY{n}{district} \PY{o+ow}{in} \PY{n}{districts}\PY{p}{:}
+              \PY{n}{district\PYZus{}df} \PY{o}{=} \PY{n}{gun\PYZus{}crimes\PYZus{}df}\PY{p}{[} \PY{n}{gun\PYZus{}crimes\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{district} \PY{p}{]}
+              \PY{n}{district\PYZus{}crimes}\PY{p}{[} \PY{n}{district}\PY{p}{]} \PY{o}{=} \PY{p}{[} \PY{n}{district\PYZus{}df}\PY{o}{.}\PY{n}{Block}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{district\PYZus{}df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{BlockCrimes}\PY{p}{,}
+                                        \PY{n}{district\PYZus{}df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{X\PYZus{}Coord}\PY{p}{,} \PY{n}{district\PYZus{}df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{Y\PYZus{}Coord}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{n}{district\PYZus{}crimes}\PY{p}{:}
+              \PY{n}{blocks} \PY{o}{=} \PY{n}{district\PYZus{}crimes}\PY{p}{[}\PY{n}{d}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n}{crimes} \PY{o}{=} \PY{n}{district\PYZus{}crimes}\PY{p}{[}\PY{n}{d}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{location} \PY{o}{=} \PY{p}{[}\PY{n}{district\PYZus{}crimes}\PY{p}{[}\PY{n}{d}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{district\PYZus{}crimes}\PY{p}{[}\PY{n}{d}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}\PY{p}{,} 
+                            \PY{n}{popup} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{District }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ had }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ block(s) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{[ (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{) }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{] with }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ crimes.}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(} \PY{n}{d}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{blocks}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{, }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{blocks}\PY{p}{)}\PY{p}{,} \PY{n}{crimes}\PY{p}{)}\PY{p}{,} 
+                              \PY{n}{max\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{450}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{most\PYZus{}gun\PYZus{}crimes\PYZus{}map}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}235}]:} \PY{n}{most\PYZus{}gun\PYZus{}crimes\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}235}]:} <folium.folium.Map at 0x1f10046bcf8>
+\end{Verbatim}
+            
+    \hypertarget{requirement-2}{%
+\subsubsection{Requirement \#2:}\label{requirement-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  Calculate the gun crimes density in every district
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}236}]:} \PY{n}{gun\PYZus{}crime\PYZus{}density} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{af}\PY{p}{,} \PY{n}{districts\PYZus{}gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{gun\PYZus{}crime\PYZus{}density}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{crime|\PYZus{}density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{n}{gun\PYZus{}crime\PYZus{}density}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gun\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{p}{(}\PY{n}{final\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district\PYZus{}area\PYZus{}inHectares}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+          \PY{n}{gun\PYZus{}crime\PYZus{}density}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}236}]:}    dist\_num  district\_area\_inHectares  gun\_crimes  crime|\_density
+          0        17               2492.727155         574            23.0
+          1        20               1132.170216         235            21.0
+          2        19               2225.035732         501           981.0
+          3        25               2827.989237        1738           217.0
+          4        14               1555.869965         822          2536.0
+          5         7               1688.670732        2739           123.0
+          6         3               1576.063931        1928            68.0
+          7         4               7068.152865        1960           126.0
+          8         6               2099.682124        2598           154.0
+          9        22               3490.416073        1059            67.0
+          10        5               3318.613379        1925            27.0
+          11       24               1406.081387         540            26.0
+          12       16               8171.776367         326             9.0
+          13        8               5992.169760        1853            56.0
+          14       18               1215.520046         411            29.0
+          15       12               2509.453028        1334            16.0
+          16       11               1582.727274        3175            53.0
+          17       15                989.631393        2015           166.0
+          18       10               2038.988883        2188            87.0
+          19        1               1214.818895         410            26.0
+          20        9               3505.216898        1794           181.0
+          21        2               1949.690970        1348            66.0
+\end{Verbatim}
+            
+    \hypertarget{requirement-3}{%
+\subsubsection{Requirement \#3:}\label{requirement-3}}
+
+\begin{itemize}
+\tightlist
+\item
+  Locate the \textbf{farthest} UNLAWFUL POSS OF HANDGUN crime from the
+  police station in every district. The popup on Choropleth map shall
+  display the district number and the block
+\end{itemize}
+
+    \hypertarget{get_furthest_crimescrime_type-varchar70}{%
+\subsubsection{get\_furthest\_crimes(crime\_type
+VARCHAR(70))}\label{get_furthest_crimescrime_type-varchar70}}
+
+stored procedure for getting the furtherest gun crimes from the station,
+by district
+CREATE OR REPLACE FUNCTION get_furthest_crimes(crime_type VARCHAR(70))
+RETURNS TABLE(
+ dist integer,
+ blk text,
+ n_crimes BIGINT,
+ pd_x_coord double precision,
+ pd_y_coord double precision,
+ cr_x_coord double precision,
+ cr_y_coord double precision
+)
+AS $$
+   BEGIN
+        RETURN QUERY
+			WITH gun_crimes AS
+			(
+				SELECT
+			          district,
+				      block,
+				      where_is as loc,
+			          ST_X(ST_AsText(Where_IS)) AS x_coord,
+				      ST_Y(ST_AsText(Where_IS)) AS y_coord
+				FROM
+				    crimes
+				WHERE
+				     DESCRIPTION::text LIKE ('%' || crime_type || '%')
+			 ), stations AS (
+				SELECT
+				     CAST( district AS INTEGER ),
+				     where_is as loc,
+				     ST_X(ST_AsText(Where_IS)) AS x_coord,
+				     ST_Y(ST_AsText(Where_IS)) AS y_coord
+				FROM
+				   police_stations
+				WHERE
+				    district != 'Headquarters'
+			), crime_distances as (
+				SELECT
+				      C.district,
+				      C.block,
+				      ST_Distance( C.loc, P.loc ) as crime_dist,
+				      C.x_coord as crime_x_coord, 
+				      C.y_coord as crime_y_coord,
+				      P.x_coord as station_x_coord,
+				      P.y_coord as station_y_coord
+				FROM
+				    gun_crimes as C
+				    INNER JOIN stations as P
+				          on C.district = P.district
+			), distance_ranking AS (
+				SELECT
+				      district,
+				      block,
+				      COUNT( * ) OVER ( PARTITION BY district ) as num_crimes,
+				      RANK() OVER( PARTITION BY district ORDER BY crime_dist DESC ) AS dist_rank,
+				      station_x_coord,
+				      station_y_coord,
+				      crime_x_coord,
+				      crime_y_coord
+				FROM
+				    crime_distances
+			)
+			SELECT
+			      district,
+			      block,
+			      num_crimes,
+			      station_x_coord,
+			      station_y_coord,
+			      crime_x_coord,
+			      crime_y_coord
+			FROM
+			    distance_ranking
+			WHERE
+			     dist_rank = 1
+			;
+END; $$ 
+
+LANGUAGE 'plpgsql';
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}237}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SELECT * FROM get\PYZus{}gun\PYZus{}crimes(}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{);}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UNLAWFUL POSS OF HANDGUN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{handgun\PYZus{}crimes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Block}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BlockCrimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DistrictCrimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}238}]:} \PY{n}{handgun\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}238}]:}    District                 Block  BlockCrimes  DistrictCrimes    X\_Coord  \textbackslash{}
+          0         1   006XX W HARRISON ST            3              48  41.858373   
+          1         1  0000X E ROOSEVELT RD            3              48  41.858373   
+          2         2       002XX E 47TH ST            6             193  41.801811   
+          3         2  056XX S MICHIGAN AVE            6             193  41.801811   
+          4         3  067XX S EAST END AVE           11             400  41.766431   
+          
+               Y\_Coord  
+          0 -87.627356  
+          1 -87.627356  
+          2 -87.630560  
+          3 -87.630560  
+          4 -87.605748  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}239}]:} \PY{n}{handgun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df} \PY{o}{=} \PY{n}{gun\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DistrictCrimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{handgun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{handgun\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{handgun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df}\PY{o}{.}\PY{n}{district} \PY{o}{=} \PY{n}{gun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df}\PY{o}{.}\PY{n}{district}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}240}]:} \PY{n}{handgun\PYZus{}crimes\PYZus{}map} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location} \PY{o}{=}\PY{p}{(}\PY{l+m+mf}{41.8781}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{87.6298}\PY{p}{)}\PY{p}{,}\PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+          
+          \PY{n}{handgun\PYZus{}crimes\PYZus{}map}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+              \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Boundaries.geojson}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+              \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlOrRd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+              \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+              \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+              \PY{n}{data} \PY{o}{=} \PY{n}{handgun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df}\PY{p}{,}
+              \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+              \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{handgun\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+              \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HANDGUN CRIME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}241}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SELECT * FROM get\PYZus{}furthest\PYZus{}crimes(}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{);}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UNLAWFUL POSS OF HANDGUN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{furthest\PYZus{}handgun\PYZus{}crimes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Block}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DistrictCrimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station\PYZus{}X\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station\PYZus{}Y\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crime\PYZus{}X\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crime\PYZus{}Y\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{n}{furthest\PYZus{}handgun\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{district} \PY{o}{=} \PY{n}{furthest\PYZus{}handgun\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{district}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{n}{furthest\PYZus{}handgun\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}243}]:}   district                     Block  DistrictCrimes  Station\_X\_Coord  \textbackslash{}
+          0        1     014XX S LYNN WHITE DR              48        41.858373   
+          1        2  055XX S LAKE SHORE DR SB             193        41.801811   
+          2        3           027XX E 75TH ST             400        41.766431   
+          3        4  095XX S EDWARD BARRON DR             478        41.707933   
+          4        5          015XX W 119TH ST             570        41.692723   
+          
+             Station\_Y\_Coord  Crime\_X\_Coord  Crime\_Y\_Coord  
+          0       -87.627356      41.862044     -87.609570  
+          1       -87.630560      41.794348     -87.579638  
+          2       -87.605748      41.760183     -87.557984  
+          3       -87.568349      41.722695     -87.525947  
+          4       -87.604506      41.677553     -87.660491  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}244}]:} \PY{n}{handgun\PYZus{}crimes\PYZus{}by\PYZus{}distance} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{handgun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df}\PY{p}{,} \PY{n}{furthest\PYZus{}handgun\PYZus{}crimes\PYZus{}df}\PY{p}{,} \PY{n}{on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}245}]:} \PY{n}{handgun\PYZus{}crimes\PYZus{}by\PYZus{}distance}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}245}]:}   district  handgun\_crimes                     Block  DistrictCrimes  \textbackslash{}
+          0        1             410     014XX S LYNN WHITE DR              48   
+          1        2            1348  055XX S LAKE SHORE DR SB             193   
+          2        3            1928           027XX E 75TH ST             400   
+          3        4            1960  095XX S EDWARD BARRON DR             478   
+          4        5            1925          015XX W 119TH ST             570   
+          
+             Station\_X\_Coord  Station\_Y\_Coord  Crime\_X\_Coord  Crime\_Y\_Coord  
+          0        41.858373       -87.627356      41.862044     -87.609570  
+          1        41.801811       -87.630560      41.794348     -87.579638  
+          2        41.766431       -87.605748      41.760183     -87.557984  
+          3        41.707933       -87.568349      41.722695     -87.525947  
+          4        41.692723       -87.604506      41.677553     -87.660491  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}246}]:} \PY{k}{for} \PY{n}{index}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{handgun\PYZus{}crimes\PYZus{}by\PYZus{}distance}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{pd\PYZus{}loc} \PY{o}{=} \PY{p}{[}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station\PYZus{}X\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Station\PYZus{}Y\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+              
+              \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{location} \PY{o}{=} \PY{n}{pd\PYZus{}loc}\PY{p}{,} 
+                        \PY{n}{popup} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Police Station \PYZlt{}br}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{\PYZgt{} District No. }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ \PYZlt{}br/\PYZgt{} Farthest Handgun Crime Block: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                            \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Block}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                          \PY{n}{max\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{450}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{handgun\PYZus{}crimes\PYZus{}map}\PY{p}{)}
+              
+              \PY{n}{crime\PYZus{}loc} \PY{o}{=} \PY{p}{[}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crime\PYZus{}X\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Crime\PYZus{}Y\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+              
+              \PY{n}{folium}\PY{o}{.}\PY{n}{CircleMarker}\PY{p}{(}\PY{n}{location} \PY{o}{=} \PY{n}{crime\PYZus{}loc}\PY{p}{,} \PY{n}{radius} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                              \PY{n}{popup} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Reported to District No. }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                              \PY{n}{max\PYZus{}width}\PY{o}{=}\PY{l+m+mi}{450}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{handgun\PYZus{}crimes\PYZus{}map}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{n}{handgun\PYZus{}crimes\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}247}]:} <folium.folium.Map at 0x1f10046b438>
+\end{Verbatim}
+            
+    \hypertarget{requirement-4}{%
+\subsubsection{Requirement \#4:}\label{requirement-4}}
+
+\begin{itemize}
+\tightlist
+\item
+  Create \textbf{Marker Clusters} on Choropleth map for those
+  \textbf{gun related violent crimes} that have Location Desciption as
+  RESIDENCE in ** (green icon)** and those that have Location Desciption
+  as STREET in \textbf{(red icon)}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}249}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SELECT * FROM get\PYZus{}gun\PYZus{}crimes(}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}\PYZsq{}}\PY{l+s+s1}{);}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GUN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+          \PY{n}{gun\PYZus{}violent\PYZus{}crimes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Block}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BlockCrimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DistrictCrimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Y\PYZus{}Coord}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}250}]:} \PY{n}{gun\PYZus{}violent\PYZus{}crimes\PYZus{}df} \PY{o}{=} \PY{n}{gun\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{District}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DistrictCrimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n}{gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{handgun\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{district} \PY{o}{=} \PY{n}{gun\PYZus{}crimes\PYZus{}by\PYZus{}district\PYZus{}df}\PY{o}{.}\PY{n}{district}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}251}]:} \PY{n}{gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}251}]:}   district  handgun\_crimes
+          0        1             410
+          1        2            1348
+          2        3            1928
+          3        4            1960
+          4        5            1925
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}252}]:} \PY{n}{gun\PYZus{}cluster\PYZus{}map} \PY{o}{=} \PY{n}{folium}\PY{o}{.}\PY{n}{Map}\PY{p}{(}\PY{n}{location} \PY{o}{=}\PY{p}{(}\PY{l+m+mf}{41.8781}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{87.6298}\PY{p}{)}\PY{p}{,}\PY{n}{zoom\PYZus{}start}\PY{o}{=}\PY{l+m+mi}{11}\PY{p}{)}
+          
+          \PY{n}{gun\PYZus{}cluster\PYZus{}map}\PY{o}{.}\PY{n}{choropleth}\PY{p}{(}
+              \PY{n}{geo\PYZus{}data}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Boundaries.geojson}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+              \PY{n}{fill\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{YlOrRd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+              \PY{n}{fill\PYZus{}opacity}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{,} 
+              \PY{n}{line\PYZus{}opacity}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+              \PY{n}{data} \PY{o}{=} \PY{n}{gun\PYZus{}violent\PYZus{}crimes\PYZus{}df}\PY{p}{,}
+              \PY{n}{key\PYZus{}on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feature.properties.dist\PYZus{}num}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+              \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{district}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{handgun\PYZus{}crimes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+              \PY{n}{legend\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{HANDGUN CRIME}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}253}]:} \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{SELECT ST\PYZus{}X(ST\PYZus{}AsText(Where\PYZus{}IS)), ST\PYZus{}Y(ST\PYZus{}AsText(Where\PYZus{}IS)), district from police\PYZus{}stations where district!=}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Headquarters}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}
+          \PY{n}{gun}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}G}\PY{l+s+s1}{UN}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}
+          
+          \PY{n}{police\PYZus{}stations} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{marker\PYZus{}cluster} \PY{o}{=} \PY{n}{MarkerCluster}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{gun\PYZus{}cluster\PYZus{}map}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{police\PYZus{}station} \PY{o+ow}{in} \PY{n}{police\PYZus{}stations}\PY{p}{:}
+              \PY{n}{police\PYZus{}station\PYZus{}location} \PY{o}{=} \PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{cursor}\PY{o}{.}\PY{n}{execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{SELECT DISTINCT ON(caseno) caseno, block, DESCRIPTION, count(arrest), arrest, latitude, longitude, location\PYZus{}description from crimes where district=}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ and DESCRIPTION::text LIKE }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ GROUP BY caseno,block, DESCRIPTION, arrest, location\PYZus{}description, latitude, longitude}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{,}\PY{p}{[}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{gun}\PY{p}{]}\PY{p}{)}
+              \PY{n}{crimes\PYZus{}per\PYZus{}district} \PY{o}{=} \PY{n}{cursor}\PY{o}{.}\PY{n}{fetchall}\PY{p}{(}\PY{p}{)}
+          
+              \PY{k}{for} \PY{n}{crime} \PY{o+ow}{in} \PY{n}{crimes\PYZus{}per\PYZus{}district}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{o}{.}\PY{n}{find}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RESIDENCE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{==} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                      \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{(}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{popup}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{District No: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZlt{}br\PYZgt{} Description: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZlt{}br\PYZgt{} Block: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{icon}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Icon}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{icon}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ok\PYZhy{}sign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{marker\PYZus{}cluster}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{folium}\PY{o}{.}\PY{n}{Marker}\PY{p}{(}\PY{n}{location}\PY{o}{=}\PY{p}{(}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{popup}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Popup}\PY{p}{(}\PY{n}{html}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{District No: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ \PYZlt{}br\PYZgt{} Description: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZlt{}br\PYZgt{} Block: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{police\PYZus{}station}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{crime}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{icon}\PY{o}{=}\PY{n}{folium}\PY{o}{.}\PY{n}{Icon}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{icon}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{remove\PYZhy{}sign}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}\PY{p}{)}\PY{o}{.}\PY{n}{add\PYZus{}to}\PY{p}{(}\PY{n}{marker\PYZus{}cluster}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}254}]:} \PY{n}{gun\PYZus{}cluster\PYZus{}map}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}254}]:} <folium.folium.Map at 0x1f100afaeb8>
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
